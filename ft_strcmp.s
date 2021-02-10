@@ -1,7 +1,7 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    ft_strlen.s                                        :+:      :+:    :+:    #
+#    ft_strcmp.s                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
@@ -10,27 +10,55 @@
 #                                                                              #
 # **************************************************************************** #
 
-; 1st arg           Stack           EBX               RDI            RDI
-; 2nd arg           Stack           ECX               RSI            RSI
-; 3rd arg           Stack           EDX               RDX            RDX
-; 4th arg           Stack           ESI               RCX            R10
-; 5th arg           Stack           EDI               R8             R8
-; 6th arg           Stack           EBP               R9  
-
-; ft_strlen(arg0 = rdi = char *s)
 segment .text
-    global ft_strlen
+	global ft_strcmp
 
+ft_strcmp:
+	mov		rcx, 0
+	mov		rdx, 0
+	cmp 	rdi, 0
+	jz		error_null
+	cmp		rsi, 0
+	jz		error_null
+	jmp		check_last
 
-ft_strlen:
-	mov		rax, 0; Move 0 to register rax
-	jmp		count; jump to fct count
+error_null:
+	cmp rdi, rsi
+	je	equal
+	jg	positif
+	jmp	negatif
 
-count:
-	cmp		BYTE[rdi + rax], 0 ; if the byte of the arg0 + the compt rax equal 0
-	je		exit ; go to fct exit
-	inc		rax ; else incremant rax
-	jmp		count
+compare:
+	mov		dl, BYTE[rsi + rcx] ; tmp = s2[i]
+	cmp		BYTE [rdi + rcx], dl ; look if s1[i] == tmp
+	jne		last_char
 
-exit:
-	ret ;
+increment:
+			inc		rcx
+
+check_last:
+	cmp		BYTE [rdi + rcx], 0
+	je		last_char
+	cmp		BYTE [rsi + rcx], 0
+	je		last_char
+	jmp		compare
+
+last_char:
+	mov		dl, BYTE [rdi + rcx]
+	sub		dl, BYTE [rsi + rcx]	; substract (rdi + rcx) and (rsi + rcx)
+	cmp		dl, 0
+	jz		equal
+	jl		negatif
+
+positif:
+	mov		rax, 1
+	ret
+
+negatif:
+	mov		rax, -1
+	ret
+
+equal:
+	mov		rax, 0
+	ret
+
