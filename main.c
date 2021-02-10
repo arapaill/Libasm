@@ -1,29 +1,20 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ncolomer <ncolomer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/16 15:19:07 by ncolomer          #+#    #+#             */
-/*   Updated: 2019/11/18 12:16:14 by ncolomer         ###   ########.fr       */
+/*   Created: 2021/02/10 21:15:45 by user42            #+#    #+#             */
+/*   Updated: 2021/02/10 21:16:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
 #include <stdio.h>
-
-/*
-** Useful macros
-*/
-# define STRLEN(x)			printf("`%s` = %d (%d)\n", x, ft_strlen(x), (int)strlen(x));
-# define STRCMP(a, b)		printf("`%s`:`%s` = %d (%d)\n", a, b, ft_strcmp(a, b), strcmp(a, b));
-# define WRITE(s, x)		printf("^%ld (`%s`:%ld)\n", ft_write(STDOUT_FILENO, s, x), s, x);
-//# define READ(b, x)			r = ft_read(STDIN_FILENO, buffer, x); printf("`%s`:%ld\n", buffer, r);
-//# define DUP(s)				tmp = ft_strdup(s); printf("`%s` (`%s`)\n", tmp, s); free(tmp); tmp = NULL;
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdlib.h>
 
 /*
 ** Function prototypes
@@ -36,7 +27,7 @@ char	*ft_strcpy(char *dst, char const *src);
 
 ssize_t	ft_write(int fd, void const *buf, size_t nbyte);
 
-// ssize_t	ft_read(int fd, void *buf, size_t nbyte);
+ ssize_t	ft_read(int fd, void *buf, size_t nbyte);
 
 //char	*ft_strdup(char const *s1);
 
@@ -186,68 +177,68 @@ void check_write()
 	// printf("\n");
 	
 }
-/*
-** 
-** void check_read()
-** {
-** 	int fd = open("main.c", O_RDONLY);
-** 	char buff1[891];
-** 	int ret = 1;
-** 	printf("\n================================\n");
-** 	printf("========== FT_READ =============\n");
-** 	printf("================================\n\n");
-** 	printf("%-20s: \n", "header main.c | libc ");
-** 	ret = read(fd, buff1, 890);
-** 	buff1[ret] = 0;
-** 	printf("[return : %d]\n|%s|\n", ret, buff1);
-** 	printf("\n");
-** 	close(fd);
-** 	fd = open("main.c", O_RDONLY);
-** 	clear_buffer(buff1, 891);
-** 	printf("%-20s: \n", "header main.c | libasm ");
-** 	ret = ft_read(fd, buff1, 890);
-** 	buff1[ret] = 0;
-** 	printf("[return : %d]\n|%s|\n", ret, buff1);
-** 	printf("\n");
-** 	clear_buffer(buff1, 891);
-** 	close(fd);
-** 
-** 	fd = open("test", O_RDONLY);
-** 	printf("%-20s: \n", "file test | libc ");
-** 	ret = read(fd, buff1, 890);
-** 	buff1[ret] = 0;
-** 	printf("[return : %d]\n|%s|\n", ret, buff1);
-** 	printf("\n");
-** 	close(fd);
-** 	fd = open("test", O_RDONLY);
-** 	clear_buffer(buff1, 891);
-** 	printf("%-20s: \n", "file test | libasm ");
-** 	ret = ft_read(fd, buff1, 890);
-** 	buff1[ret] = 0;
-** 	printf("[return : %d]\n|%s|\n", ret, buff1);
-** 	printf("\n");
-** 	clear_buffer(buff1, 891);
-** 	close(fd);
-** 
-** 	fd = open("wrong", O_RDONLY);
-** 	printf("%-20s: \n", "wrong | libc ");
-** 	ret = read(fd, buff1, 890);
-** 	buff1[ret] = 0;
-** 	printf("[return : %d]\n|%s|\n", ret, buff1);
-** 	printf("\n");
-** 	close(fd);
-** 	fd = open("wrong", O_RDONLY);
-** 	clear_buffer(buff1, 891);
-** 	printf("%-20s: \n", "wrong | libasm ");
-** 	ret = ft_read(fd, buff1, 890);
-** 	buff1[ret] = 0;
-** 	printf("[return : %d]\n|%s|\n", ret, buff1);
-** 	printf("\n");
-** 	clear_buffer(buff1, 891);
-** 	close(fd);
-** }
-** 
-*/
+
+
+ void check_read()
+ {
+ 	int fd = open("main.c", O_RDONLY);
+ 	char buff1[891];
+ 	int ret = 1;
+ 	printf("\n================================\n");
+ 	printf("========== FT_READ =============\n");
+ 	printf("================================\n\n");
+ 	printf("%-20s: \n", "header main.c | libc ");
+ 	ret = read(fd, buff1, 890);
+ 	buff1[ret] = 0;
+ 	printf("[return : %d]\n|%s|\n", ret, buff1);
+ 	printf("\n");
+ 	close(fd);
+ 	fd = open("main.c", O_RDONLY);
+ 	clear_buffer(buff1, 891);
+ 	printf("%-20s: \n", "header main.c | libasm ");
+ 	ret = ft_read(fd, buff1, 890);
+ 	buff1[ret] = 0;
+ 	printf("[return : %d]\n|%s|\n", ret, buff1);
+ 	printf("\n");
+ 	clear_buffer(buff1, 891);
+ 	close(fd);
+ 
+ 	fd = open("test", O_RDONLY);
+ 	printf("%-20s: \n", "file test | libc ");
+ 	ret = read(fd, buff1, 890);
+ 	buff1[ret] = 0;
+ 	printf("[return : %d]\n|%s|\n", ret, buff1);
+ 	printf("\n");
+ 	close(fd);
+ 	fd = open("test", O_RDONLY);
+ 	clear_buffer(buff1, 891);
+ 	printf("%-20s: \n", "file test | libasm ");
+ 	ret = ft_read(fd, buff1, 890);
+ 	buff1[ret] = 0;
+ 	printf("[return : %d]\n|%s|\n", ret, buff1);
+ 	printf("\n");
+	clear_buffer(buff1, 891);
+ 	close(fd);
+ 
+ 	fd = open("wrong", O_RDONLY);
+ 	printf("%-20s: \n", "wrong | libc ");
+ 	ret = read(fd, buff1, 890);
+ 	buff1[ret] = 0;
+ 	printf("[return : %d]\n|%s|\n", ret, buff1);
+ 	printf("\n");
+ 	close(fd);
+ 	fd = open("wrong", O_RDONLY);
+ 	clear_buffer(buff1, 891);
+ 	printf("%-20s: \n", "wrong | libasm ");
+ 	ret = ft_read(fd, buff1, 890);
+ 	buff1[ret] = 0;
+ 	printf("[return : %d]\n|%s|\n", ret, buff1);
+ 	printf("\n");
+ 	clear_buffer(buff1, 891);
+ 	close(fd);
+ }
+ 
+
 /*
 ** void check_strdup()
 ** {
@@ -301,6 +292,6 @@ int main()
 	check_strcpy();
 	check_strcmp();
 	check_write();
-	//check_read();
+	check_read();
 	//check_strdup();
 }

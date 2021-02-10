@@ -6,7 +6,7 @@
 #    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/10 09:08:02 by user42            #+#    #+#              #
-#    Updated: 2021/02/10 16:45:03 by user42           ###   ########.fr        #
+#    Updated: 2021/02/10 21:02:53 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NASM = nasm
 NASMFLAGS = -f elf64
 
 NAME = libasm.a
-ASMSRC = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s
+ASMSRC = ft_strlen.s ft_strcpy.s ft_strcmp.s ft_write.s ft_read.s
 ASMOBJ = $(ASMSRC:.s=.o)
 
 all: $(NAME)
