@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 21:15:45 by user42            #+#    #+#             */
-/*   Updated: 2021/02/10 21:16:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/10 21:37:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ ssize_t	ft_write(int fd, void const *buf, size_t nbyte);
 
  ssize_t	ft_read(int fd, void *buf, size_t nbyte);
 
-//char	*ft_strdup(char const *s1);
+char	*ft_strdup(char const *s1);
 
 /*
 ** Start !
@@ -239,53 +239,42 @@ void check_write()
  }
  
 
-/*
-** void check_strdup()
-** {
-** 	char *hello_world = "Hello world !";
-** 	char *empty = "";
-** 	char *save;
-** 	char *save2;
-** 
-** 	printf("\n================================\n");
-** 	printf("========== FT_STRDUP ===========\n");
-** 	printf("================================\n\n");
-** 	printf("%-20s: \"%s\"\n", "char *", hello_world);
-** 	save = strdup(hello_world);
-** 	printf("%-20s: \"%s\"\n", "libc", save);
-** 	free(save);
-** 	save = NULL;
-** 	save2 = ft_strdup(hello_world);
-** 	printf("%-20s: \"%s\"\n", "libasm", save2);
-** 	free(save2);
-** 	save2 = NULL;
-** 	printf("\n");
-** 
-** 	printf("%-20s: \"%s\"\n", "char *", empty);
-** 	save = strdup(empty);
-** 	printf("%-20s: \"%s\"\n", "libc", save);
-** 	free(save);
-** 	save = NULL;
-** 	save2 = ft_strdup(empty);
-** 	printf("%-20s: \"%s\"\n", "libasm", save2);
-** 	free(save2);
-** 	save2 = NULL;
-** 	printf("\n");
-** 
-** 	// ------- NULL = SEGFAULT
-** 	// printf("%-20s: NULL\n", "char *");
-** 	// save = strdup(NULL);
-** 	// printf("%-20s: \"%s\"\n", "libc", save);
-** 	// free(save);
-** 	// save = NULL;
-** 	// save2 = ft_strdup(NULL);
-** 	// printf("%-20s: \"%s\"\n", "libasm", save2);
-** 	// free(save2);
-** 	// save2 = NULL;
-** 	// printf("\n");
-** }
-** 
-*/
+
+ void check_strdup()
+ {
+ 	char *hello_world = "Hello world !";
+	char *empty = "";
+ 	char *save;
+ 	char *save2;
+ 
+ 	printf("\n================================\n");
+ 	printf("========== FT_STRDUP ===========\n");
+ 	printf("================================\n\n");
+ 	printf("%-20s: \"%s\"\n", "char *", hello_world);
+ 	save = strdup(hello_world);
+ 	printf("%-20s: \"%s\"\n", "libc", save);
+ 	free(save);
+ 	save = NULL;
+ 	save2 = ft_strdup(hello_world);
+ 	printf("%-20s: \"%s\"\n", "libasm", save2);
+ 	free(save2);
+ 	save2 = NULL;
+ 	printf("\n");
+ 
+ 	printf("%-20s: \"%s\"\n", "char *", empty);
+ 	save = strdup(empty);
+ 	printf("%-20s: \"%s\"\n", "libc", save);
+ 	free(save);
+ 	save = NULL;
+ 	save2 = ft_strdup(empty);
+ 	printf("%-20s: \"%s\"\n", "libasm", save2);
+ 	free(save2);
+ 	save2 = NULL;
+ 	printf("\n");
+ 
+
+}
+
 int main()
 {
 	check_strlen();
@@ -293,5 +282,5 @@ int main()
 	check_strcmp();
 	check_write();
 	check_read();
-	//check_strdup();
+	check_strdup();
 }
