@@ -39,6 +39,6 @@ clean:
 	$(RM) $(ASMOBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) a.out
 
 re: fclean all
