@@ -47,7 +47,7 @@ void check_strlen()
 	printf("%-20s: \"%s\"\n", "char *", empty);
 	printf("%-20s: 0\n", "expected lenght");
 	printf("%-20s: %zu\n", "libc", strlen(empty));	
-	printf("%-20s: %zu\n", "libasm", ft_strlen(empty));
+	printf("%-20s: %u\n", "libasm", ft_strlen(empty));
 	printf("\n");
 	printf("%-20s: \"%s\"\n", "char *", hello_world);
 	printf("%-20s: 0\n", "expected lenght");
