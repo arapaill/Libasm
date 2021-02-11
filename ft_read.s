@@ -10,18 +10,20 @@
 #                                                                              #
 # **************************************************************************** #
 
-segment .text
-	global ft_read
+extern __errno_location
+global ft_read
 
+section .text
 ft_read:
-	mov 	rax, 0x2000003	; set call to read
-	syscall					; call rax (read)
-		jc exit_error		; if doesn't work, read set flags carry to 1 so jmp exit error
-	jmp exit				; jump exit
-
-exit_error:
-	mov 	rax, -1			; set return to -1s
-	ret						; return
-	
-exit:
-	ret						; return 
+    mov rax, 0x00 ; sys_write
+    syscall     ; call write
+    cmp rax, 0
+    jl error
+    ret
+error:
+    neg rax    ; get absolute value of syscall return
+    mov rdi, rax
+    call __errno_location wrt ..plt
+    mov [rax], rdi  ; set the value of errno
+    mov rax, -1
+    ret

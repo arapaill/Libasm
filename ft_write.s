@@ -9,20 +9,20 @@
 #    Updated: 2021/02/10 10:46:09 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-section	.text
-	global	ft_write
+extern __errno_location
+global ft_write
 
-;fd = rdi, buffer = rsi, bytes = rdx
+section .text
 ft_write:
-	mov		r8, rdx ; save len in r8
-	mov rax, 0x2000004 ; set call to write
-	syscall	;call rax
-	jc exit_error
-	jmp exit
-
-exit_error:
-	mov rax, -1
-	ret
-
-exit:
-	mov rax, r8
+    mov rax, 0x1  ; sys_write
+    syscall     ; call write
+    cmp rax, 0
+    jl error
+    ret
+error:
+    neg rax    ; get absolute value of syscall return
+	push rax
+    call __errno_location wrt ..plt
+    pop qword [rax]
+    mov rax, -1
+    ret

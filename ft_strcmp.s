@@ -1,64 +1,25 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_strcmp.s                                        :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/02/10 10:46:09 by user42            #+#    #+#              #
-#    Updated: 2021/02/10 10:46:09 by user42           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 segment .text
 	global ft_strcmp
 
 ft_strcmp:
-	mov		rcx, 0
-	mov		rdx, 0
-	cmp 	rdi, 0
-	jz		error_null
-	cmp		rsi, 0
-	jz		error_null
-	jmp		check_last
+	mov 	rax, 0		; define rax to 0
+	jmp		compa		; call compa
 
-error_null:
-	cmp rdi, rsi
-	je	equal
-	jg	positif
-	jmp	negatif
+compa:
+	mov		al, BYTE [rdi]	; get the least significant byte in rdi where is stock the value of the char
+	mov		bl, BYTE [rsi]	; get the least significant byte in rsi where is stock the value of the char
+	cmp		al, 0			; if we are not at the end of rdi (arg0)
+	je		exit			; jump to exit_end
+	cmp		bl, 0			; if we are not at the end of rdi (arg1)
+	je		exit			; jump to exit
+	cmp 	al, bl			; compare al and bl
+	jne 	exit			; if the result of cmp is diferrent than 0 so the string are differents
+	inc 	rdi				; increment the rdi pointer
+	inc 	rsi				; increment the rsi pointer
+	jmp 	compa			; if we are here it's because the chars of string are equals the we can continu
 
-compare:
-	mov		dl, BYTE[rsi + rcx] ; tmp = s2[i]
-	cmp		BYTE [rdi + rcx], dl ; look if s1[i] == tmp
-	jne		last_char
-
-increment:
-			inc		rcx
-
-check_last:
-	cmp		BYTE [rdi + rcx], 0
-	je		last_char
-	cmp		BYTE [rsi + rcx], 0
-	je		last_char
-	jmp		compare
-
-last_char:
-	mov		dl, BYTE [rdi + rcx]
-	sub		dl, BYTE [rsi + rcx]	; substract (rdi + rcx) and (rsi + rcx)
-	cmp		dl, 0
-	jz		equal
-	jl		negatif
-
-positif:
-	mov		rax, 1
-	ret
-
-negatif:
-	mov		rax, -1
-	ret
-
-equal:
-	mov		rax, 0
-	ret
-
+exit:
+	movzx	rax, al			; movzx = copy a register of inferior size in a bigger and fill the other bits with 0, and this register is rax
+    movzx	rbx, bl			; same that previous but set it in rbx
+    sub		rax, rbx		; stock the difference of rax and rbx in rax; Finaly : do the difference beetween the char at the rdi pointer and the char at the rsi pointer 
+	ret						; return (rax)

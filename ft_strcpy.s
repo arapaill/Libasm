@@ -17,6 +17,11 @@ segment .text
 
 ; ft_strcpy(arg0 = rdi = dst, arg1 = rsi = src)
 ft_strcpy:
+	mov		rax, 0
+	cmp		rdi, 0
+	je		exit
+	cmp		rsi,0
+	je		exit
 	push 	rdi			; to save it on the top of the stack
 	mov 	rdi, rsi	; move rdi to rsi
 	call 	ft_strlen 	; call ft_strlen, result is stock in rax

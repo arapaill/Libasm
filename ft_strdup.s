@@ -23,7 +23,7 @@ ft_strdup:
 	add		rax, 1 ; + 1 for \0
 	push    rdi, ; value of rdi is push on top, what was in  rdi is now in rsi
 	mov     rdi, rax ; rdi has now len + 1
-	call    malloc ; return in rax malloc takes rdi vallue
+	call    malloc wrt ..plt ; return in rax malloc takes rdi vallue
 	pop		r9; get arg0 (of ft_strdup) stocked on stack
 	cmp		rax, 0; if malloc is null, error
 	jz		error	

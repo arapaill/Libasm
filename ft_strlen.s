@@ -21,16 +21,14 @@
 segment .text
     global ft_strlen
 
-
 ft_strlen:
-	mov		rax, 0; Move 0 to register rax
-	jmp		count; jump to fct count
-
+	mov		rax, 0
+	jmp		count
 count:
-	cmp		BYTE[rdi + rax], 0 ; if the byte of the arg0 + the compt rax equal 0
-	je		exit ; go to fct exit
-	inc		rax ; else incremant rax
+	cmp		BYTE[rdi + rax], 0
+	je		return
+	inc		rax
 	jmp		count
 
-exit:
-	ret ;
+return:
+	ret
