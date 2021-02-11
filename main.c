@@ -52,12 +52,12 @@ void check_strlen()
 	printf("%-20s: \"%s\"\n", "char *", hello_world);
 	printf("%-20s: 0\n", "expected lenght");
 	printf("%-20s: %zu\n", "libc", strlen(hello_world));	
-	printf("%-20s: %zu\n", "libasm", ft_strlen(hello_world));
+	printf("%-20s: %u\n", "libasm", ft_strlen(hello_world));
 	printf("\n");
 	printf("%-20s: \"%s\"\n", "char *", alphabet);
 	printf("%-20s: 0\n", "expected lenght");
 	printf("%-20s: %zu\n", "libc", strlen(alphabet));	
-	printf("%-20s: %zu\n", "libasm", ft_strlen(alphabet));
+	printf("%-20s: %u\n", "libasm", ft_strlen(alphabet));
 	printf("\n");
 	
 	// ------- NULL = SEGFAULT
